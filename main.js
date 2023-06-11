@@ -1,3 +1,9 @@
+// let RiTa = require('rita');
+// let rhymes = RiTa.rhymes('sweet');
+// console.log(rhymes);
+
+// let data = RiTa.analyze("The elephant took a bite!");
+// console.log(data);
 
 //Create City Generator with name, types, and population
 
@@ -9,7 +15,7 @@
     //Population by settlement size
         //Village: 20-900
         //Town: 901-5000
-        //Large City: 5001-25000
+        //City: 5001-25000
         //Metropolis: 25001-75000
 
 //Code to remember
@@ -33,20 +39,94 @@
 
 
 
-class Settlement {
-    constructor(name, settlementTypeArray, settlementSize, population){
-        this._name = name
+class Settlement { //The main settlement object generator
+    constructor(settlementName, settlementTypeArray, settlementSize, population){
+        this._settlementName = settlementName
         this._settlementTypeArray = [
             new SettlementType('thorp', 20-80, )]
         this._settlementSize = settlementSize
         this._population = population
     }
+}
 
-    class SettlementName extends Settlement { //Use a Markov Chain and Prefixes, Suffixes, and Syllables
-        constructor(){
-            this._settlementName = settlementName
+    
+
+    class SettlementName { //Possible Additions, town names by race
+        constructor(settlementName){
+            this.settlementName = settlementName
+        }
+
+        villageName(){
+
+        }
+
+        townName(){
+
+            let names;
+            let order = 2;
+            let ngrams = {};
+            let beginnings = [];
+            let button;
+
+            function preload() {
+            names = loadStrings('names.txt');
+            console.log(names);
+            }
+
+            function setup() {
+
+            for (let j = 0; j < names.length; j++) {
+                let txt = names[j];
+                for (let i = 0; i <= txt.length - order; i++) {
+                    let gram = txt.substring(i, i + order);
+                    if (i == 0) {
+                    beginnings.push(gram);
+                    }
+
+                    if (!ngrams[gram]) {
+                    ngrams[gram] = [];
+                    }
+                    ngrams[gram].push(txt.charAt(i + order));
+                }
+            }
+            button = createButton("generate");
+            button.mousePressed(markovIt);
+            console.log(ngrams);
+            }
+
+            function markovIt() {
+
+            let currentGram = random(beginnings);
+            let result = currentGram;
+
+            for (let i = 0; i < 20; i++) {
+                let possibilities = ngrams[currentGram];
+                if (!possibilities) {
+                break;
+                }
+                let next = random(possibilities);
+                result += next;
+                let len = result.length;
+                currentGram = result.substring(len - order, len);
+            }
+
+            createP(result);
+        }
+            // rm.addText("Grimsby Holmfirth","Cromer Todmorden","Swordbreak Wigston","Auctermunty Calchester","Beckton Aberuthven","Oldham Blencalgo","MillerVille Erast","Acomb Lanercost","Bredon Dundee","Athelney Ballinamallard")
+        }
+
+        cityName(){
+
+        }
+
+        metropolisName(){
+
         }
     }
+
+    let lancercoast = new SettlementName()
+    lancercoast.townName()
+
     class SettlementType  { //Use Code down below
         constructor(settlementType){
             this._settlementType = settlementType
@@ -68,23 +148,25 @@ class Settlement {
 
     }
 
-    class SettlementSize{
+    class SettlementSize {
         constructor(){
             this._settlementSize = settlementSize
         }
     }
 
-    class Population{
+//For the Population name generator, I want it to generate names based on race and based on gender. So there will be empty arrays for each race and the gender within each race, and they will be populated by the randomly generated names from the markov chains.
+
+    class Population {
         constructor(){
             this.population = this.population
         }
     }
     
    
-}
 
-const newSettlement = new Settlement()
-newSettlement.randomSettlement()
+
+// const newSettlement = new Settlement()
+// newSettlement.randomSettlement()
 
 
 
