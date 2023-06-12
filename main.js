@@ -62,57 +62,51 @@ class Settlement { //The main settlement object generator
 
         townName(){
 
-            let names;
-            let order = 2;
-            let ngrams = {};
-            let beginnings = [];
-            let button;
+            let townNamesArr = ["Grimsby","Holmfirth","Cromer","Todmorden","Swordbreak","Wigston","Auctermunty","Calchester","Beckton","Aberuthven","Oldham","Blencalgo","MillerVille","Erast","Acomb","Lanercost","Bredon","Dundee","Athelney","Ballinamallard"]
+            let order = 2
+            let ngrams = {}
+            let beginnings = []
+            // document.querySelector('#globalButton').addEventListener('click', buttonAction)
 
-            function preload() {
-            names = loadStrings('names.txt');
-            console.log(names);
-            }
+            function buttonAction(){
+                for (let j = 0; j < townNamesArr.length; j++) {
+                    let txt = townNamesArr[j]
+                        for (let i = 0; i <= txt.length - order; i++) {
+                            let gram = txt.substring(i, i + order)
+                                if (i === 0) {
+                                    beginnings.push(gram)
+                                }
 
-            function setup() {
-
-            for (let j = 0; j < names.length; j++) {
-                let txt = names[j];
-                for (let i = 0; i <= txt.length - order; i++) {
-                    let gram = txt.substring(i, i + order);
-                    if (i == 0) {
-                    beginnings.push(gram);
-                    }
-
-                    if (!ngrams[gram]) {
-                    ngrams[gram] = [];
-                    }
-                    ngrams[gram].push(txt.charAt(i + order));
+                                if (!ngrams[gram]) {
+                                    ngrams[gram] = []
+                                }
+                                    ngrams[gram].push(txt.charAt(i + order))
+                        }
                 }
-            }
-            button = createButton("generate");
-            button.mousePressed(markovIt);
-            console.log(ngrams);
+                console.log(buttonAction())
             }
 
             function markovIt() {
 
-            let currentGram = random(beginnings);
-            let result = currentGram;
+                let currentGram = random(beginnings)
+                let result = currentGram
 
-            for (let i = 0; i < 20; i++) {
-                let possibilities = ngrams[currentGram];
-                if (!possibilities) {
-                break;
-                }
-                let next = random(possibilities);
-                result += next;
-                let len = result.length;
-                currentGram = result.substring(len - order, len);
+                    for (let i = 0; i < 20; i++) {
+                        let possibilities = ngrams[currentGram]
+                        if (!possibilities) {
+                            break
+                        }
+                        let nextIndex = Math.floor(Math.random * possibilities)
+                        let next = possibilities[nextIndex]
+                        result += next
+                        let len = result.length
+                        currentGram = result.substring(len - order, len)
+                    }
+
+                        
             }
-
-            createP(result);
         }
-            // rm.addText("Grimsby Holmfirth","Cromer Todmorden","Swordbreak Wigston","Auctermunty Calchester","Beckton Aberuthven","Oldham Blencalgo","MillerVille Erast","Acomb Lanercost","Bredon Dundee","Athelney Ballinamallard")
+
         }
 
         cityName(){
@@ -122,7 +116,11 @@ class Settlement { //The main settlement object generator
         metropolisName(){
 
         }
-    }
+
+
+   
+
+
 
     let lancercoast = new SettlementName()
     lancercoast.townName()
