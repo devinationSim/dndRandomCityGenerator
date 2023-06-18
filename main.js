@@ -39,126 +39,126 @@
 
 
 
-class Settlement { //The main settlement object generator
-    constructor(settlementName, settlementTypeArray, settlementSize, population){
-        this._settlementName = settlementName
-        this._settlementTypeArray = [
-            new SettlementType('thorp', 20-80, )]
-        this._settlementSize = settlementSize
-        this._population = population
-    }
-}
+// class Settlement { //The main settlement object generator
+//     constructor(settlementName, settlementTypeArray, settlementSize, population){
+//         this._settlementName = settlementName
+//         this._settlementTypeArray = [
+//             new SettlementType('thorp', 20-80, )]
+//         this._settlementSize = settlementSize
+//         this._population = population
+//     }
+// }
 
     
 
-    class SettlementName { //Possible Additions, town names by race
-        constructor(settlementName){
-            this.settlementName = settlementName
-        }
+//     class SettlementName { //Possible Additions, town names by race
+//         constructor(settlementName){
+//             this.settlementName = settlementName
+//         }
 
-        villageName(){
+//         villageName(){
 
-        }
+//         }
 
-        townName(){
+//         townName(){
 
-            let townNamesArr = ["Grimsby","Holmfirth","Cromer","Todmorden","Swordbreak","Wigston","Auctermunty","Calchester","Beckton","Aberuthven","Oldham","Blencalgo","MillerVille","Erast","Acomb","Lanercost","Bredon","Dundee","Athelney","Ballinamallard"]
-            let order = 2
-            let ngrams = {}
-            let beginnings = []
-            // document.querySelector('#globalButton').addEventListener('click', buttonAction)
+//             let townNamesArr = ["Grimsby","Holmfirth","Cromer","Todmorden","Swordbreak","Wigston","Auctermunty","Calchester","Beckton","Aberuthven","Oldham","Blencalgo","MillerVille","Erast","Acomb","Lanercost","Bredon","Dundee","Athelney","Ballinamallard"]
+//             let order = 2
+//             let ngrams = {}
+//             let beginnings = []
+//             // document.querySelector('#globalButton').addEventListener('click', buttonAction)
 
-            function buttonAction(){
-                for (let j = 0; j < townNamesArr.length; j++) {
-                    let txt = townNamesArr[j]
-                        for (let i = 0; i <= txt.length - order; i++) {
-                            let gram = txt.substring(i, i + order)
-                                if (i === 0) {
-                                    beginnings.push(gram)
-                                }
+//             function buttonAction(){
+//                 for (let j = 0; j < townNamesArr.length; j++) {
+//                     let txt = townNamesArr[j]
+//                         for (let i = 0; i <= txt.length - order; i++) {
+//                             let gram = txt.substring(i, i + order)
+//                                 if (i === 0) {
+//                                     beginnings.push(gram)
+//                                 }
 
-                                if (!ngrams[gram]) {
-                                    ngrams[gram] = []
-                                }
-                                    ngrams[gram].push(txt.charAt(i + order))
-                        }
-                }
-                console.log(buttonAction())
-            }
+//                                 if (!ngrams[gram]) {
+//                                     ngrams[gram] = []
+//                                 }
+//                                     ngrams[gram].push(txt.charAt(i + order))
+//                         }
+//                 }
+//                 console.log(buttonAction())
+//             }
 
-            function markovIt() {
+//             function markovIt() {
 
-                let currentGram = random(beginnings)
-                let result = currentGram
+//                 let currentGram = random(beginnings)
+//                 let result = currentGram
 
-                    for (let i = 0; i < 20; i++) {
-                        let possibilities = ngrams[currentGram]
-                        if (!possibilities) {
-                            break
-                        }
-                        let nextIndex = Math.floor(Math.random * possibilities)
-                        let next = possibilities[nextIndex]
-                        result += next
-                        let len = result.length
-                        currentGram = result.substring(len - order, len)
-                    }
+//                     for (let i = 0; i < 20; i++) {
+//                         let possibilities = ngrams[currentGram]
+//                         if (!possibilities) {
+//                             break
+//                         }
+//                         let nextIndex = Math.floor(Math.random * possibilities)
+//                         let next = possibilities[nextIndex]
+//                         result += next
+//                         let len = result.length
+//                         currentGram = result.substring(len - order, len)
+//                     }
 
                         
-            }
-        }
+//             }
+//         }
 
-        }
+//         }
 
-        cityName(){
+//         cityName(){
 
-        }
+//         }
 
-        metropolisName(){
+//         metropolisName(){
 
-        }
+//         }
 
 
    
 
 
 
-    let lancercoast = new SettlementName()
-    lancercoast.townName()
+//     let lancercoast = new SettlementName()
+//     lancercoast.townName()
 
-    class SettlementType  { //Use Code down below
-        constructor(settlementType){
-            this._settlementType = settlementType
-        }
+//     class SettlementType  { //Use Code down below
+//         constructor(settlementType){
+//             this._settlementType = settlementType
+//         }
 
-        get settlementType(){
-            return this._settlementType
-        }
+//         get settlementType(){
+//             return this._settlementType
+//         }
 
-        get randomSettlement(){
-            return this.randomSettlement()
-        }
+//         get randomSettlement(){
+//             return this.randomSettlement()
+//         }
 
-        randomSettlement(){
-            let settlementIndex = Math.floor(Math.random() * this._settlementTypeArray.length)
-            let randomSettlementType = this._settlementType[settlementIndex]
-            return document.querySelector('#test').innerText = randomSettlementType
-        }
+//         randomSettlement(){
+//             let settlementIndex = Math.floor(Math.random() * this._settlementTypeArray.length)
+//             let randomSettlementType = this._settlementType[settlementIndex]
+//             return document.querySelector('#test').innerText = randomSettlementType
+//         }
 
-    }
+//     }
 
-    class SettlementSize {
-        constructor(){
-            this._settlementSize = settlementSize
-        }
-    }
+//     class SettlementSize {
+//         constructor(){
+//             this._settlementSize = settlementSize
+//         }
+//     }
 
-//For the Population name generator, I want it to generate names based on race and based on gender. So there will be empty arrays for each race and the gender within each race, and they will be populated by the randomly generated names from the markov chains.
+// //For the Population name generator, I want it to generate names based on race and based on gender. So there will be empty arrays for each race and the gender within each race, and they will be populated by the randomly generated names from the markov chains.
 
-    class Population {
-        constructor(){
-            this.population = this.population
-        }
-    }
+//     class Population {
+//         constructor(){
+//             this.population = this.population
+//         }
+//     }
     
    
 
